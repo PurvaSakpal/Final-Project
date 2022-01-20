@@ -14,7 +14,7 @@ class UserAddress extends Model
     public function couponused(){
         return $this->hasOne(CouponsUsed::class);
     }
-    public function Orderdetail(){
+    public function orderdetail(){
         return $this->hasOne(OrderDetails::class);
     }
     public function userorder(){

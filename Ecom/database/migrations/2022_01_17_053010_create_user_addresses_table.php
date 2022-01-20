@@ -21,8 +21,8 @@ class CreateUserAddressesTable extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('address1');
-            $table->string('address2')->nullable();
+            $table->text('address1');
+            $table->text('address2')->nullable();
             $table->string('postal_code');
             $table->string('mobile_no');
             $table->timestamps();

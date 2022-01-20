@@ -4,18 +4,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.deletecat').click(function(e) {
-                var cid = $(this).attr('cid');
-                if (confirm("Delete Category?")) {
+            $('.deleteadd').click(function(e) {
+                var aid = $(this).attr('aid');
+                if (confirm("Delete Address?")) {
                     $.ajax({
-                        url: "{{ url('/category/deletecategory') }}",
+                        url: "{{ url('/cms/deleteaddress') }}",
                         method: 'post',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            cid: cid
+                            aid: aid
                         },
                         success: function(response) {
-                            window.location.href = "/category/showcategory";
+                            window.location.href = "/cms/showaddress";
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
@@ -31,48 +31,56 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                <h1>Categories Here</h1>
+                <h1>CMS Address Here</h1>
             </div>
             <div class="col-md-3">
-                <a href="/category/addcategory" class="btn btn-warning float-right display-block" style="
-                ">Add Category</a>
+                <a href="/cms/addaddress" class="btn btn-warning float-right display-block" style="
+                    ">Add Address</a>
             </div>
         </div>
         @if (Session::has('success'))
             <div class="alert alert-success" id="successMessage">{{ Session::get('success') }}</div>
         @endif
-        <table class="table table-striped" id="mytable">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Sr No.</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Fax</th>
+                    <th scope="col">Email</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @if (!empty($category) && $category->count())
-                    @foreach ($category as $cat)
+                @if (!empty($address) && $address->count())
+                    @foreach ($address as $add)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $cat->name }}</td>
-                            <td>{{ $cat->description }}</td>
+                            <td>{{ $add->name }}</td>
+                            <td>{{ $add->address1 }},{{ $add->address2 }}</td>
+                            <td>{{ $add->state }}</td>
+                            <td>{{ $add->country }}</td>
+                            <td>{{ $add->mobile }}</td>
+                            <td>{{ $add->fax }}</td>
+                            <td>{{ $add->email }}</td>
                             <td>
-                                <a href="/category/editcategory/{{ $cat->id }}" class="btn btn-success">Edit</a>
-                                <a href="javascript:void(0)" cid={{ $cat->id }}
-                                    class="btn btn-danger deletecat">Delete</a>
+                                <a href="javascript:void(0)" aid="{{ $add->id }}" class="btn btn-danger deleteadd"><i
+                                        class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach
+
                 @else
                     <tr>
-                        <td colspan="4" class="text-center">There is no data.</td>
+                        <td colspan="8">There is no data.</td>
                     </tr>
                 @endif
             </tbody>
         </table>
         <div>
-            {{ $category->links() }}
+            {{ $address->links() }}
         </div>
     </div>
     <style>

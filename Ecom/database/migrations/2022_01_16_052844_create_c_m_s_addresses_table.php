@@ -16,12 +16,12 @@ class CreateCMSAddressesTable extends Migration
         Schema::create('c_m_s_addresses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address1');
-            $table->string('address2')->nullable();
+            $table->text('address1');
+            $table->text('address2')->nullable();
             $table->string('state');
             $table->string('country');
-            $table->integer('mobile');
-            $table->integer('fax');
+            $table->bigInteger('mobile');
+            $table->bigInteger('fax');
             $table->string('email');
             $table->timestamps();
         });

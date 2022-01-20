@@ -17,7 +17,8 @@ class CreateProductAttributeAssocsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('color');
+            $table->string('attr_name')->nullable();
+            $table->text('arrt_value')->nullable();
             $table->timestamps();
         });
     }

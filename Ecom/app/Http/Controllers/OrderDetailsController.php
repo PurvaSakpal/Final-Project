@@ -16,15 +16,17 @@ class OrderDetailsController extends Controller
     {
         $this->middleware('auth');
     }
-   public function ShowOrderDetails(){
-       $users=User::with('useraddress')->get();
-       return view('Order Details.ShowOrderDetails',compact('users'));
-   }
-   public function OrderInfo($id){
-       $products=Product::with('images','assoc')->get();
-        $coupons=Coupon::all();
-        $useraddress=UserAddress::with('couponused','Orderdetail','userorder')->whereId($id)->get();
+    public function ShowOrderDetails()
+    {
+        $users = User::orderBy('created_at', 'desc')->with('useraddress')->paginate(10);
+        return view('Order Details.ShowOrderDetails', compact('users'));
+    }
+    public function OrderInfo($id)
+    {
+        $products = Product::with('images', 'assoc')->get();
+        $coupons = Coupon::all();
+        $useraddress = UserAddress::with('couponused', 'Orderdetail', 'userorder')->whereId($id)->first();
 
-       return view('Order Details.OrderInfo',compact('useraddress','products','coupons'));
-   }
+        return view('Order Details.OrderInfo', compact('useraddress', 'products', 'coupons'));
+    }
 }

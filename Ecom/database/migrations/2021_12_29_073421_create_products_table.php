@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('price');
             $table->integer('quantity');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
